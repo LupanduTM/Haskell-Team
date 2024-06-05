@@ -36,3 +36,16 @@ rightHandPatterns = Map.fromList [
     ('8', "1001000"), ('9', "1110100")
 
     ]
+    leftHandGPatterns :: Map.Map Char String
+leftHandGPatterns = Map.fromList [
+    ('0', "0100111"), ('1', "0110011"), ('2', "0011011"), ('3', "0100001"),
+    ('4', "0011101"), ('5', "0111001"), ('6', "0000101"), ('7', "0010001"),
+    ('8', "0001001"), ('9', "0010111")
+    ]
+
+firstDigitEncoding :: Map.Map Char String
+firstDigitEncoding = Map.fromList [
+    ('0', "LLLLLL"), ('1', "LLGLGG"), ('2', "LLGGLG"), ('3', "LLGGGL"),
+    ('4', "LGLLGG"), ('5', "LGGLLG"), ('6', "LGGGLL"), ('7', "LGLGLG"),
+    ('8', "LGLGGL"), ('9', "LGGLGL")
+    ]
