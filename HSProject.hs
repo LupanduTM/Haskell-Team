@@ -23,7 +23,8 @@ rightHandPatterns = Map.fromList [
     ('4', "1011100"), ('5', "1001110"), ('6', "1010000"), ('7', "1000100"),
     ('8', "1001000"), ('9', "1110100")
     ]
-    leftHandGPatterns :: Map.Map Char String
+    
+leftHandGPatterns :: Map.Map Char String
 leftHandGPatterns = Map.fromList [
     ('0', "0100111"), ('1', "0110011"), ('2', "0011011"), ('3', "0100001"),
     ('4', "0011101"), ('5', "0111001"), ('6', "0000101"), ('7', "0010001"),
@@ -36,3 +37,7 @@ firstDigitEncoding = Map.fromList [
     ('4', "LGLLGG"), ('5', "LGGLLG"), ('6', "LGGGLL"), ('7', "LGLGLG"),
     ('8', "LGLGGL"), ('9', "LGGLGL")
     ]
+
+-- Validate EAN-13 input
+validateEAN13 :: String -> Bool
+validateEAN13 code = length code == 13 && all isDigit code
