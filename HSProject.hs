@@ -41,3 +41,17 @@ firstDigitEncoding = Map.fromList [
 -- Validate EAN-13 input
 validateEAN13 :: String -> Bool
 validateEAN13 code = length code == 13 && all isDigit code
+
+-- Encode EAN-13 digits into barcode pattern
+encodeEAN13 :: String -> String
+encodeEAN13 (x:xs) =
+    let encoding = fromMaybe "LLLLLL" $ Map.lookup x firstDigitEncoding
+        leftPart = zipWith encodeLeftDigit (take 6 xs) encoding
+        rightPart = map encodeRightDigit (drop 6 xs)
+    in "101" ++ concat leftPart ++ "01010" ++ concat rightPart ++ "101"
+  where
+    encodeLeftDigit d e
+        | e == 'L' = fromMaybe "" $ Map.lookup d leftHandPatterns
+        | e == 'G' = fromMaybe "" $ Map.lookup d leftHandGPatterns
+    encodeRightDigit d = fromMaybe "" $ Map.lookup d rightHandPatterns
+encodeEAN13 _ = error "Invalid EAN-13 code length"
