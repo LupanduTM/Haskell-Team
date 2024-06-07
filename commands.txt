@@ -1,0 +1,25 @@
+1.Haskell code compile command:
+ghc -package containers --make Main.hs -o generateBarcode
+
+2.add to database:
+INSERT INTO employees (F_Name, L_Name, Employee_ID_No, Has_Barcode) 
+VALUES ('John', 'Doe', 1234567890123, 1);
+
+3.reset bit value in database:
+UPDATE employees SET Has_Barcode = 0 WHERE Has_Barcode = 1;
+
+4. making the database command:
+CREATE DATABASE Haskell_project_db;
+
+USE Haskell_project_db;
+
+CREATE TABLE employees (
+    F_Name VARCHAR(255),
+    L_Name VARCHAR(255),
+    Employee_ID_No BIGINT(13) PRIMARY KEY,
+    Has_Barcode TINYINT(1) DEFAULT 0
+);
+
+5. Running The haskell code on cmd:
+generateBarcode.exe 9312345678901
+
