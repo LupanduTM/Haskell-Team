@@ -55,3 +55,19 @@ encodeEAN13 (x:xs) =
         | e == 'G' = fromMaybe "" $ Map.lookup d leftHandGPatterns
     encodeRightDigit d = fromMaybe "" $ Map.lookup d rightHandPatterns
 encodeEAN13 _ = error "Invalid EAN-13 code length"
+
+-- Create barcode image
+createBarcodeImage :: String -> Image Pixel8
+createBarcodeImage code = generateImage pixelRenderer imgWidth imgHeight
+  where
+    pattern = encodeEAN13 code
+    moduleWidth = 2
+    moduleHeight = 100
+    quietZoneWidth = 9
+    imgWidth = quietZoneWidth * 2 + length pattern * moduleWidth
+    imgHeight = moduleHeight
+
+    pixelRenderer x y
+        | x < quietZoneWidth || x >= imgWidth - quietZoneWidth = 255
+        | pattern !! ((x - quietZoneWidth) `div` moduleWidth) == '1' = 0
+        | otherwise = 255
