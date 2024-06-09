@@ -71,3 +71,19 @@ createBarcodeImage code = generateImage pixelRenderer imgWidth imgHeight
         | x < quietZoneWidth || x >= imgWidth - quietZoneWidth = 255
         | pattern !! ((x - quietZoneWidth) `div` moduleWidth) == '1' = 0
         | otherwise = 255
+
+-- Main function
+main :: IO ()
+main = do
+    args <- getArgs
+    case args of
+        [ean13] -> 
+            if validateEAN13 ean13
+            then do
+                let img = createBarcodeImage ean13
+                saveBmpImage "ean13.bmp" (ImageY8 img)
+                putStrLn "EAN-13 barcode image created: ean13.bmp"
+            else
+                putStrLn "Invalid EAN-13 code."
+        _ -> putStrLn "Usage: generateBarcode <13-digit EAN-13 code>"
+        
